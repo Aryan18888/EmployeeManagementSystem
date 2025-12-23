@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 *{
- color: #fff;
+  color: #fff;
 }
 
 body{
@@ -11,4 +11,9 @@ body{
 #tasklist::-webkit-scrollbar{
     background-color: transparent;
 display: none;
+}
+
+select option{
+  color: #000;
+  background-color: #fff;
 }
