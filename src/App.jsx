@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Login from './components/Auth/Login'
-import EmployeeDashboard from './components/Dashboard/EmployeeDashboard'
 import AdminDashboard from './components/Dashboard/AdminDashboard'
-import { AuthContext } from './context/AuthProvider'
+import EmployeeDashboard from './components/Dashboard/EmployeeDashboard'
+import { AuthContext } from './context/AuthContext'
 
 const App = () => {
 
 
     const [user, setUser] = useState(null)
     const [loggedInUserData, setLoggedInUserData] = useState(null)
-    const [userData, setUserData] = useContext(AuthContext)
+    const [userData] = useContext(AuthContext)
 
     useEffect(() => {
 
@@ -42,11 +42,12 @@ const App = () => {
         }
     }
 
+    const currentEmployee = userData && loggedInUserData ? userData.find((e) => e.id === loggedInUserData.id) : null
+
     return (
         <>
             {user ? '' : <Login handleLogin={handleLogin} />}
-            {user == 'admin' ? <AdminDashboard changeUser={setUser} /> : (user == 'employee' ? <EmployeeDashboard changeUser={setUser} data={loggedInUserData} /> : null)}
-
+            {user == 'admin' ? <AdminDashboard changeUser={setUser} /> : (user == 'employee' ? <EmployeeDashboard changeUser={setUser} data={currentEmployee || loggedInUserData} /> : null)}
         </>
     )
 }
